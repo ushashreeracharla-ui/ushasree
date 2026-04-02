@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% block content %}
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css">
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+
+<div class="modern-dashboard">
+    <div class="dashboard-container">
+        
+        <header class="glass-card header-flex">
+            <div class="welcome-area">
+                <h1>Task Calendar</h1>
+                <p>Visualizing your schedule and upcoming deadlines.</p>
+            </div>
+            <div class="action-buttons">
+                <a href="/dashboard" class="btn btn-secondary">← Back to Dashboard</a>
+            </div>
+        </header>
+
+        <div class="calendar-wrapper-card glass-card">
+            <div id="calendar"></div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var calendarEl = document.getElementById('calendar');
+
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        height: 'auto',
+        headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek'
+        },
+        // Modern Styling for Events
+        eventTextColor: '#ffffff',
+        displayEventTime: false,
+        events: [
+            {% for t in tasks %}
+            {
+                title: "{{ t.title }}",
+                start: "{{ t.deadline }}",
+                // Dynamic Coloring based on Task Type
+                color: "{% if t.type == 'Exam' %}#ef4444{% elif t.type == 'Project' %}#4f46e5{% else %}#10b981{% endif %}",
+                extendedProps: {
+                    type: "{{ t.type }}"
+                }
+            },
+            {% endfor %}
+        ],
+        eventDidMount: function(info) {
+            // Adds a small indicator for the task type
+            let dot = document.createElement('span');
+            dot.style.fontSize = '0.7em';
+            dot.style.marginRight = '5px';
+            dot.innerText = '•';
+            info.el.querySelector('.fc-event-title').prepend(dot);
+        }
+    });
+
+    calendar.render();
+});
+</script>
+
+<style>
+    /* FullCalendar Custom Theme Overrides to match Dashboard */
+    .fc {
+        font-family: 'Inter', sans-serif;
+        color: #1e293b;
+    }
+    .fc .fc-toolbar-title {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: #1e293b;
+    }
+    .fc .fc-button-primary {
+        background-color: #4f46e5;
+        border-color: #4f46e5;
+        text-transform: capitalize;
+        font-weight: 600;
+        border-radius: 8px;
+    }
+    .fc .fc-button-primary:hover {
+        background-color: #4338ca;
+    }
+    .fc .fc-daygrid-day-number {
+        font-weight: 600;
+        color: #64748b;
+        padding: 10px;
+        text-decoration: none;
+    }
+    .fc-theme-standard td, .fc-theme-standard th {
+        border: 1px solid #f1f5f9;
+    }
+    .fc .fc-event {
+        border-radius: 6px;
+        padding: 4px 8px;
+        font-weight: 600;
+        font-size: 0.85rem;
+        border: none;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .calendar-wrapper-card {
+        padding: 30px;
+        background: white !important; /* Keep inside of card white for readability */
+    }
+</style>
+
+{% endblock %}

@@ -1,0 +1,288 @@
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial;
+}
+
+/* BODY BACKGROUND */
+body {
+    background: url("/static/images/taskkk.jpeg") no-repeat center;
+    background-size: cover;
+    color: white;
+}
+
+/* DARK OVERLAY */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: -1;
+}
+
+/* TOP BAR */
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+}
+
+/* PROFILE */
+.profile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.profile img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* ICONS */
+.icons {
+    display: flex;
+    gap: 15px;
+}
+
+.icon-box {
+    width: 45px;
+    height: 45px;
+    background: #1e293b;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.icon-box:hover {
+    background: #334155;
+}
+
+/* SEARCH BAR */
+.search-bar {
+    width: 80%;
+    margin: 20px auto;
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 25px;
+    border: none;
+    font-size: 16px;
+    outline: none;
+}
+
+/* CONTAINER */
+.container {
+    width: 90%;
+    margin: auto;
+}
+
+/* CARDS */
+.card {
+    background: #1e293b;
+    padding: 20px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+}
+
+/* TIMER */
+.timer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* BUTTONS */
+.play-btn {
+    background: gold;
+    color: black;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+/* TASK */
+.task {
+    display: flex;
+    justify-content: space-between;
+    background: #334155;
+    padding: 15px;
+    border-radius: 15px;
+    margin-top: 10px;
+}
+
+/* CENTER BUTTON */
+.center-btn {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* DASHBOARD BUTTON */
+.add-btn {
+    background: black;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 12px;
+    text-decoration: none;
+}
+.center-btn {
+    text-align: center;
+    margin-top: 30px;
+}
+
+/* DASHBOARD LAYOUT */
+.dashboard-layout {
+    display: flex;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 220px;
+    height: 100vh;
+    background: #0f172a;
+    color: white;
+    padding: 20px;
+    position: fixed;
+}
+
+.sidebar .logo {
+    margin-bottom: 30px;
+}
+
+.sidebar a {
+    display: block;
+    padding: 12px;
+    color: white;
+    text-decoration: none;
+    margin: 10px 0;
+    border-radius: 8px;
+}
+
+.sidebar a:hover {
+    background: #1e293b;
+}
+
+/* MAIN CONTENT */
+.main-content {
+    margin-left: 240px;
+    width: calc(100% - 240px);
+    padding: 20px;
+}
+
+/* TOPBAR */
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.topbar input {
+    width: 60%;
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+}
+
+/* PROFILE */
+.profile-mini {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.profile-mini img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+}
+
+/* TASK GRID */
+.task-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+/* TASK CARD */
+.task-card {
+    background: #1e293b;
+    padding: 20px;
+    border-radius: 15px;
+}
+
+/* HEADING */
+.main-heading {
+    font-size: 32px;
+    margin-top: 20px;
+}
+
+/* BUTTON */
+.add-btn {
+    background: black;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 12px;
+    text-decoration: none;
+}
+/* =========================
+   CALENDAR LAYOUT (ADDED)
+========================= */
+
+.home-content {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+/* LEFT TASKS */
+.tasks-section {
+    flex: 2;
+}
+
+/* RIGHT CALENDAR */
+.calendar-section {
+    flex: 1;
+    background: #1e293b;
+    padding: 15px;
+    border-radius: 15px;
+    color: white;
+}
+
+/* CALENDAR TITLE */
+.calendar-section h2 {
+    margin-bottom: 10px;
+}
+
+/* CALENDAR BOX */
+#calendar {
+    background: white;
+    border-radius: 10px;
+    padding: 10px;
+    color: black;
+}
+
+/* FIX FULLCALENDAR TEXT */
+.fc {
+    color: black;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+    .home-content {
+        flex-direction: column;
+    }
+}
+/* TOPBAR ALIGNMENT FIX */

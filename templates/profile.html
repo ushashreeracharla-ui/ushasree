@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Profile</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='profile.css') }}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>My Profile</h1>
+
+    <!-- PROFILE IMAGE -->
+    <div class="profile-img">
+        <img src="{{ url_for('static', filename='images/' + user.profile_pic) }}">
+    </div>
+
+    <!-- EDIT FORM -->
+    <form action="/update_profile" method="POST" enctype="multipart/form-data">
+
+        <label>Username</label>
+        <input type="text" name="username" value="{{ user.username }}" required>
+
+        <label>Email</label>
+        <input type="email" name="email" value="{{ user.email }}" required>
+
+        <label>Change Profile Picture</label>
+        <input type="file" name="file">
+
+        <button type="submit">Update Profile</button>
+    </form>
+
+    <br>
+    <a href="/home" class="back-btn">⬅ Back to Home</a>
+
+</div>
+
+</body>
+</html>

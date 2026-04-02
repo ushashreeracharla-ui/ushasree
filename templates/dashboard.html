@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+{% block content %}
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<div class="modern-dashboard">
+    <div class="dashboard-container">
+        <header class="glass-card header-flex">
+            <div class="welcome-area">
+                <h1>My Tasks</h1>
+                <p>Stay organized and hit your deadlines.</p>
+            </div>
+            <div class="action-buttons">
+                <a href="/calendar" class="btn btn-secondary">📅 View Calendar</a>
+                <a href="/logout" class="btn btn-danger">Logout</a>
+            </div>
+        </header>
+
+        <div class="stats-row">
+            <div class="glass-card stat-item">
+                <span class="stat-label">Total Tasks</span>
+                <h3 class="stat-value">{{ tasks|length }}</h3>
+            </div>
+            <div class="glass-card stat-item">
+                <span class="stat-label">🔥 Day Streak</span>
+                <h3 class="stat-value">{{ user.streak if user.streak else 0 }}</h3>
+            </div>
+            <div class="glass-card stat-item chart-card">
+                <span class="stat-label">Task Progress</span>
+                <div class="chart-container">
+                    <canvas id="taskProgressChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content-split">
+            <section class="form-container">
+                <div class="glass-card">
+                    <h2 class="section-title">✨ Create New Task</h2>
+                    <form action="/add" method="POST" class="modern-form">
+                        <div class="form-group">
+                            <label>Task Title</label>
+                            <input type="text" name="title" placeholder="What needs to be done?" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea name="description" placeholder="Add more details..." rows="3"></textarea>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group half">
+                                <label>Category</label>
+                                <select name="type">
+                                    <option>Assignment</option>
+                                    <option>Exam</option>
+                                    <option>Project</option>
+                                </select>
+                            </div>
+                            <div class="form-group half">
+                                <label>Due Date</label>
+                                <input type="date" name="deadline">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Add Task</button>
+                    </form>
+                </div>
+            </section>
+
+            <section class="list-container">
+                <h2 class="section-title light">Your Progress</h2>
+                <div class="task-scroll">
+                    {% for t in tasks %}
+                    <div class="task-card-modern">
+                        <div class="task-border" style="background: #4f46e5;"></div>
+                        <div class="task-content">
+                            <span class="task-type">{{ t.type }}</span>
+                            <h3>{{ t.title }}</h3>
+                            <div class="task-meta">
+                                <span class="deadline">⏳ {{ t.deadline }}</span>
+                                {% if alerts[loop.index0] %}
+                                <span class="badge badge-error">⚠️ Overdue</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="task-actions">
+                            <a href="/edit/{{ t.id }}" class="icon-btn">✏️</a>
+                            <a href="/delete/{{ t.id }}" class="icon-btn delete">🗑️</a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Initialize Progress Chart
+    const ctx = document.getElementById('taskProgressChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Done', 'Pending'],
+            datasets: [{
+                data: [{{ tasks|length }}, 5], // Example: 5 as goal. 
+                backgroundColor: ['#4f46e5', 'rgba(255, 255, 255, 0.2)'],
+                borderWidth: 0,
+                hoverOffset: 4
+            }]
+        },
+        options: {
+            cutout: '75%',
+            plugins: { legend: { display: false } },
+            maintainAspectRatio: false
+        }
+    });
+</script>
+{% endblock %}

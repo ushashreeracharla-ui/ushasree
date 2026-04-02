@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="page-overlay">
+    <div class="main-container full-width-task-page">
+
+        <div class="add-task-box">
+            <h2>Edit Task</h2>
+
+            <form action="{{ url_for('edit_task', id=task.id) }}" method="POST" class="task-form">
+
+                <input type="text" name="title" value="{{ task.title }}" required>
+
+                <textarea name="description" required>{{ task.description }}</textarea>
+
+                <select name="type" required>
+                    <option value="Assignment" {% if task.type == 'Assignment' %}selected{% endif %}>Assignment</option>
+                    <option value="Exam" {% if task.type == 'Exam' %}selected{% endif %}>Exam</option>
+                    <option value="Project" {% if task.type == 'Project' %}selected{% endif %}>Project</option>
+                </select>
+
+                <input type="date" name="deadline" value="{{ task.deadline }}" required>
+
+                <button type="submit">Update Task</button>
+            </form>
+
+            <div class="calendar-btn-box">
+                <a href="{{ url_for('dashboard') }}" class="back-btn">Back</a>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

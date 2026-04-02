@@ -1,0 +1,50 @@
+body {
+    font-family: Arial;
+    background: linear-gradient(to right, #1e3c72, #2a5298);
+}
+
+.container {
+    width: 90%;
+    margin: 40px auto;
+    padding: 80px;
+    min-height: 80vh;
+    border-radius: 12px;
+
+    background-image: url("/static/images/task.jpeg");  /* 👈 IMAGE */
+    background-size: cover;        /* fit properly */
+    background-position: center;   /* center image */
+    background-repeat: no-repeat;
+
+    position: relative;
+}
+
+.navbar,
+.content {
+    position: relative;
+    z-index: 2;
+}
+.navbar {
+    display: flex;
+    justify-content: flex-end;
+    gap: 30px;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: black;
+}
+
+.content {
+    width: 50%;
+}
+
+.content h1 {
+    font-size: 55px;
+}
+
+.btn {
+    background: #ff4b2b;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 25px;
+}
